@@ -1,36 +1,19 @@
-import os
-import subprocess
 import click
-from pick import pick
+import helper
+import runner
 
 @click.command()
 def cli():
-    android_home = get_android_home()
-    device_name = get_selected_device(get_emulator_devices())
-    run_selected_device(android_home, device_name)
+    """
+    Android Emulator Device selection CLI.\n
+    Just run it and select from available devices.\n
+    No option is needed in v0.1.0.
+    """
+    android_home = helper.get_android_home()
+    available_devices = helper.get_emulator_devices()
 
-def get_android_home():
-    android_home = os.environ.get('ANDROID_HOME')
-    if android_home == None:
-        raise RuntimeError('$ANDROID_HOME not found.')
-    return android_home
-
-def get_emulator_devices():
-    cmd = ['emulator', '-list-avds']
-    result = subprocess.run(cmd, stdout=subprocess.PIPE).stdout.decode('utf-8')
-    return result.strip().split('\n')
-
-def get_selected_device(devices):
-    title = 'Select device:'
-    option, _ = pick(devices, title)
-    return option
-
-def run_selected_device(android_home, device_name):
-    cmd = [
-        "{}/emulator/emulator".format(android_home),
-        "@{}".format(device_name)
-    ]
-    subprocess.run(cmd)
+    selected_device = runner.get_selected_device(available_devices)
+    runner.run_selected_device(android_home, selected_device)
 
 
 if __name__ == '__main__':
