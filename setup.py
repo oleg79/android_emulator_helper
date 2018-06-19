@@ -1,11 +1,11 @@
-from setuptools import setup
+import setuptools
 
 with open('README.md', 'r') as fh:
     long_description = fh.read()
 
-setup(
+setuptools.setup(
     name='asim-select',
-    version='0.0.1',
+    version='0.0.3',
     author='Oleg Kapustin',
     author_email='0112oleg@gmail.com',
     description='''
@@ -15,7 +15,8 @@ setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/oleg79/android_emulator_helper',
-    py_modules=['android_emulator'],
+    packages=setuptools.find_packages(),
+    py_modules=['android_emulator', 'helper', 'runner'],
     keywords='android emulator cli',
     license='MIT',
     install_requires=[
