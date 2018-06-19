@@ -1,0 +1,1 @@
+A simple CLI to run available android emulator devices without starting Android Studio or executing several terminal commands.
