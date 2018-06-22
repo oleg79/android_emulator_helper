@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name='asim-select',
-    version='0.0.3',
+    version='0.0.4',
     author='Oleg Kapustin',
     author_email='0112oleg@gmail.com',
     description='''
