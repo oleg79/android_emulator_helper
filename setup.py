@@ -1,4 +1,7 @@
 import setuptools
+from setup_commands import CustomDevelopCommand
+from setup_commands import CustomInstallCommand
+from setup_commands import CustomEggInfoCommand
 
 with open('README.md', 'r') as fh:
     long_description = fh.read()
@@ -27,6 +30,11 @@ setuptools.setup(
         [console_scripts]
         asim-select=android_emulator:cli
     ''',
+    cmdclass={
+        'install': CustomInstallCommand,
+        'develop': CustomDevelopCommand,
+        'egg_info': CustomEggInfoCommand,
+    },
     classifiers=(
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',
