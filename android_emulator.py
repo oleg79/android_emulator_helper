@@ -6,23 +6,35 @@ import runner
 import settings_manager
 
 @click.command()
-def cli():
+@click.option('--default'
+             , is_flag=True
+             , help='Run default device.')
+@click.option('--latest'
+             , is_flag=True
+             , help='Run latest started device.')
+def cli(default, latest):
     """
 Android Emulator Device selection CLI.
 Just run it and select from available devices.
-No option is needed in v0.1.0.
     """
     android_home = helper.get_android_home()
     available_devices = helper.get_emulator_devices()
 
-    click.echo('asim-select CLI. Developed by Oleg Kapustin.') 
+    default_device = settings_manager.get_device_by_status('DefaultDevice')
+    latest_started_device = settings_manager.get_device_by_status('LatestStartedDevice')
 
-    selected_device = runner.get_selected_device(available_devices)
+    if default and default_device in available_devices:
+        runner.run_selected_device(android_home, default_device)
 
-    settings_manager.set_device_status(selected_device, 'LatestStartedDevice')
+    elif latest and latest_started_device in available_devices:
+        runner.run_selected_device(android_home, latest_started_device)
 
-    runner.run_selected_device(android_home, selected_device)
+    else:
+        click.echo('asim-select CLI. Developed by Oleg Kapustin.') 
 
+        selected_device = runner.get_selected_device(available_devices)
+
+        runner.run_selected_device(android_home, selected_device)
 
 if __name__ == '__main__':
     cli()

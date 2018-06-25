@@ -32,4 +32,5 @@ def run_selected_device(android_home, device_name):
         "{}/emulator/emulator".format(android_home),
         "@{}".format(device_name)
     ]
+    settings_manager.set_device_status(device_name, 'LatestStartedDevice')
     subprocess.run(cmd)

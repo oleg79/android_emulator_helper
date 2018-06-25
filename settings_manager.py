@@ -12,17 +12,23 @@ def set_device_status(device_name, key):
         data[key] = device_name
         json.dump(data, datafile)
 
+def get_device_by_status(status):
+    """
+    Returns device name by status.
+    """
+    with open('data.json', 'r') as datafile:
+        data = json.load(datafile)
+    return data.get(status, None)
+
 def map_device_status(option):
     """
     Maps options with their statuses if such exits for options list display.
     """
     stats = []
 
-    with open('data.json', 'r') as datafile:
-        data = json.load(datafile)
-    if option == data.get('DefaultDevice', False):
+    if option == get_device_by_status('DefaultDevice'):
         stats.append('default')
-    if option == data.get('LatestStartedDevice', False):
+    if option == get_device_by_status('LatestStartedDevice'):
         stats.append('latest started')
 
     return "{} {}".format(option, ", ".join(stats))
