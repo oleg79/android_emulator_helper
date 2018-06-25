@@ -31,7 +31,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name='asim-select',
-    version='0.1.1',
+    version='0.1.2',
     author='Oleg Kapustin',
     author_email='0112oleg@gmail.com',
     description='''
@@ -42,7 +42,12 @@ setuptools.setup(
     long_description_content_type='text/markdown',
     url='https://github.com/oleg79/android_emulator_helper',
     packages=setuptools.find_packages(),
-    py_modules=['android_emulator', 'helper', 'runner'],
+    py_modules=[
+        'android_emulator',
+        'helper',
+        'runner',
+        'settings_manager',
+    ],
     keywords='android emulator cli',
     license='MIT',
     install_requires=[
