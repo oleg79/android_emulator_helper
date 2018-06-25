@@ -1,14 +1,37 @@
 import setuptools
-from setup_commands import CustomDevelopCommand
-from setup_commands import CustomInstallCommand
-from setup_commands import CustomEggInfoCommand
+from setuptools.command.install import install
+from setuptools.command.develop import develop
+from setuptools.command.egg_info import egg_info
+
+def create_json():
+    with open('./data.json','w') as datafile:
+        datafile.write('{}')
+
+
+class CustomInstallCommand(install):
+    def run(self):
+        install.run(self)
+        create_json()
+
+
+class CustomDevelopCommand(develop):
+    def run(self):
+        develop.run(self)
+        create_json()
+
+
+class CustomEggInfoCommand(egg_info):
+    def run(self):
+        egg_info.run(self)
+        create_json()
+
 
 with open('README.md', 'r') as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name='asim-select',
-    version='0.1.0',
+    version='0.1.1',
     author='Oleg Kapustin',
     author_email='0112oleg@gmail.com',
     description='''
