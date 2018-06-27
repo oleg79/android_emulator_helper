@@ -12,7 +12,7 @@ import settings_manager
 @click.option('--latest'
              , is_flag=True
              , help='Run latest started device.')
-def cli(default, latest):
+def cli(default=False, latest=False):
     """
 Android Emulator Device selection CLI.
 Just run it and select from available devices.
@@ -30,8 +30,6 @@ Just run it and select from available devices.
         runner.run_selected_device(android_home, latest_started_device)
 
     else:
-        click.echo('asim-select CLI. Developed by Oleg Kapustin.') 
-
         selected_device = runner.get_selected_device(available_devices)
 
         runner.run_selected_device(android_home, selected_device)
