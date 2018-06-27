@@ -3,4 +3,4 @@ venv
 *.cpython*
 *.egg-info
 *.tar.gz
-*.json
+data.json
