@@ -1,7 +1,7 @@
 import os
 import sys
 import subprocess
-from click import ClickException
+import click
 
 
 def get_android_home():
@@ -10,10 +10,16 @@ def get_android_home():
     """
     android_home = os.environ.get('ANDROID_HOME')
     if android_home is None:
-        raise ClickException("""
+        click.secho('$ANDROID_HOME environment variable is not found', fg='red')
+        value = click.prompt('Please specify android sdk path manualy for the current session', type=str)
+
+        if os.path.isdir(value):
+            return value
+        else:
+            raise click.ClickException("""
 $ANDROID_HOME is not found.
 Please be sure that $ANDROID_HOME enviroment variable has been exported.
-        """)
+            """)
 
     return android_home
 
@@ -33,7 +39,7 @@ def get_emulator_devices():
     devices = result.strip().split('\n')
 
     if len(devices) == 0:
-        raise ClickException('No available emulator diviceswere found.')
+        raise click.ClickException('No available emulator diviceswere found.')
 
     return devices
 
